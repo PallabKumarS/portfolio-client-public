@@ -127,6 +127,32 @@ const CollisionMechanism = React.forwardRef<
   });
   const [beamKey, setBeamKey] = useState(0);
   const [cycleCollisionDetected, setCycleCollisionDetected] = useState(false);
+  const [pageHeight, setPageHeight] = useState("3000px"); // Default fallback height
+
+  // Calculate and update page height
+  useEffect(() => {
+    const updatePageHeight = () => {
+      if (parentRef.current) {
+        const height = Math.max(
+          document.body.scrollHeight,
+          document.documentElement.scrollHeight,
+          parentRef.current.scrollHeight
+        );
+        setPageHeight(`${height + 500}px`); // Add extra to ensure it goes beyond the bottom
+      }
+    };
+
+    updatePageHeight();
+    window.addEventListener("resize", updatePageHeight);
+
+    // Update height again after a short delay to account for dynamic content
+    const timeoutId = setTimeout(updatePageHeight, 500);
+
+    return () => {
+      window.removeEventListener("resize", updatePageHeight);
+      clearTimeout(timeoutId);
+    };
+  }, [parentRef]);
 
   useEffect(() => {
     const checkCollision = () => {
@@ -188,7 +214,7 @@ const CollisionMechanism = React.forwardRef<
         }}
         variants={{
           animate: {
-            translateY: beamOptions.translateY || "1800px",
+            translateY: beamOptions.translateY || pageHeight, // Use dynamic page height
             translateX: beamOptions.translateX || "0px",
             rotate: beamOptions.rotate || 0,
           },

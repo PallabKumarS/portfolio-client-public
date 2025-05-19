@@ -222,7 +222,7 @@ const SkillSet = () => {
                           {skill.proficiency}%
                         </span>
                       </div>
-                      <div className="h-2 w-full bg-secondary/10 rounded-full overflow-hidden">
+                      <div className="h-2 w-full bg-primary/10 rounded-full overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: `${skill.proficiency}%` }}
@@ -330,7 +330,7 @@ const SkillSet = () => {
                           {skill.proficiency}%
                         </span>
                       </div>
-                      <div className="h-2 w-full bg-accent/10 rounded-full overflow-hidden">
+                      <div className="h-2 w-full bg-primary/10 rounded-full overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: `${skill.proficiency}%` }}

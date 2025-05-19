@@ -53,7 +53,7 @@ const Services = () => {
             <p className="text-gray-300">
               As an adept MERN stack developer, my back-end development services
               are tailored for robust and efficient web solutions. Proficient in
-              Node.js and Express.js, I specialize in architecturing scalable
+              Node.js and Express.js, I specialize in architecturally scalable
               server-side applications that seamlessly handle data flow and
               enhance overall system performance. Leveraging MongoDB for
               database design and management, I ensure optimal data integrity

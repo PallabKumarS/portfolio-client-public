@@ -19,7 +19,7 @@ const ProjectPage = () => {
   }, []);
 
   return (
-    <div className="mt-10">
+    <div className="my-10">
       <div className="flex justify-between items-center mb-10">
         <h1 className="text-3xl font-semibold">All projects</h1>
       </div>

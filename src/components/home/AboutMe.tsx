@@ -205,7 +205,7 @@ const About = () => {
           <h2 className="text-2xl font-bold">Education</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(min(600px,100%),1fr))] gap-4">
           {aboutData.education.map((edu: TEducation, index: number) => (
             <motion.div
               key={index}

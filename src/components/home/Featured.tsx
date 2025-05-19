@@ -12,6 +12,7 @@ import { TMongoose, TProject } from "@/types/types";
 import { getAllProjects } from "@/services/api.services";
 import { LoaderComponent } from "../shared/LoaderComponent";
 import { FaStar } from "react-icons/fa";
+import { NoData } from "../shared/NoData";
 
 // Animation variants
 const containerVariants = {
@@ -95,14 +96,7 @@ const Featured = () => {
   }
 
   if (projects.length === 0) {
-    return (
-      <div className="py-16 text-center">
-        <h2 className="text-3xl font-bold mb-4">Projects</h2>
-        <p className="text-muted-foreground">
-          No projects available at the moment.
-        </p>
-      </div>
-    );
+    return <NoData />;
   }
 
   return (

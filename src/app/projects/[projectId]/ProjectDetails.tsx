@@ -6,6 +6,7 @@ import Link from "next/link";
 import ImageCarousel from "@/components/shared/ImageCarousel";
 import { TMongoose, TProject } from "@/types/types";
 import { TextGenerateEffect } from "@/components/ui/TextGenerateEffect";
+import ContainerComponent from "@/components/shared/ContainerComponent";
 
 const ProjectDetails = ({ data }: { data: TProject & TMongoose }) => {
   const {
@@ -19,8 +20,21 @@ const ProjectDetails = ({ data }: { data: TProject & TMongoose }) => {
   } = data;
 
   return (
-    <div className="container mx-auto py-10">
-      <Card className="max-w-4xl mx-auto bg-gradient-to-b from-background/50 to-background/80 backdrop-blur-sm border border-muted/20">
+    <ContainerComponent className="mx-auto py-10 relative">
+      {/* Background Effects */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Animated Gradient Orbs */}
+        <div className="absolute top-1/4 -left-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div
+          className="absolute bottom-1/4 -right-20 w-80 h-80 bg-accent/20 rounded-full blur-3xl animate-pulse-slow"
+          style={{ animationDelay: "1s" }}
+        ></div>
+
+        {/* Mesh Grid Pattern - Subtle background texture */}
+        <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_center,_var(--muted)_1px,_transparent_1px)] bg-[size:24px_24px]"></div>
+      </div>
+
+      <Card className="max-w-6xl mx-auto bg-gradient-to-b from-background/50 to-background/80 backdrop-blur-sm border border-muted/20 relative z-10 shadow-xl">
         <div className="space-y-8 p-4 md:p-8">
           {/* Title with text generation effect */}
           <TextGenerateEffect
@@ -80,7 +94,7 @@ const ProjectDetails = ({ data }: { data: TProject & TMongoose }) => {
           </div>
         </div>
       </Card>
-    </div>
+    </ContainerComponent>
   );
 };
 

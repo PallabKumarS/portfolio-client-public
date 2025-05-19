@@ -16,7 +16,7 @@ const Profile = () => {
           className="w-full rounded-t-lg h-40"
         />
         <Image
-          src="/My Picture.jpg"
+          src="https://avatars.githubusercontent.com/u/25210910?v=4"
           alt="Profile Picture"
           width={500}
           height={200}

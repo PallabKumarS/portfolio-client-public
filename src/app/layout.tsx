@@ -24,12 +24,12 @@ export default async function RootLayout({
           defaultTheme="light"
           disableTransitionOnChange
         >
-          <BackgroundBeamsWithCollision className="min-h-fit items-start">
-            <div className="">
-              <div className="">
+          <BackgroundBeamsWithCollision className="h-min-fit">
+            <div>
+              <div className="min-h-screen">
                 <Navbar />
+                <div className="h-full">{children}</div>
               </div>
-              <div className="h-full">{children}</div>
               <Footer />
             </div>
           </BackgroundBeamsWithCollision>
