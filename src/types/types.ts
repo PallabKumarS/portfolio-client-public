@@ -7,6 +7,7 @@ export type TProject = {
   clientRepo?: string;
   serverRepo?: string;
   videoLink?: string;
+  isFeatured?: boolean;
 };
 
 export type TMessage = {
