@@ -14,6 +14,32 @@ export const BackgroundBeamsWithCollision = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const parentRef = useRef<HTMLDivElement>(null);
 
+  const colorThemes = [
+    "from-primary via-primary/70 to-transparent",
+    "from-accent via-accent/70 to-transparent",
+    "from-indigo-500 via-purple-500 to-transparent",
+    "from-blue-500 via-cyan-500 to-transparent",
+    "from-rose-500 via-pink-500 to-transparent",
+    "from-amber-500 via-yellow-500 to-transparent",
+    "from-emerald-500 via-green-500 to-transparent",
+  ];
+
+  // Generate random color theme index
+  const getRandomColorTheme = () => {
+    return colorThemes[Math.floor(Math.random() * colorThemes.length)];
+  };
+
+  // Generate random width class
+  const getRandomWidth = () => {
+    const widths = ["w-0.5", "w-1", "w-1.5", "w-2"];
+    return widths[Math.floor(Math.random() * widths.length)];
+  };
+
+  const getRandomHeight = () => {
+    const widths = ["h-4", "h-6", "h-8", "h-10"];
+    return widths[Math.floor(Math.random() * widths.length)];
+  };
+
   const beams = [
     {
       initialX: 10,
@@ -21,6 +47,9 @@ export const BackgroundBeamsWithCollision = ({
       duration: 7,
       repeatDelay: 3,
       delay: 2,
+      colorTheme: getRandomColorTheme(),
+      width: getRandomWidth(),
+      height: getRandomHeight(),
     },
     {
       initialX: 600,
@@ -28,13 +57,18 @@ export const BackgroundBeamsWithCollision = ({
       duration: 3,
       repeatDelay: 3,
       delay: 4,
+      colorTheme: getRandomColorTheme(),
+      width: getRandomWidth(),
+      height: getRandomHeight(),
     },
     {
       initialX: 100,
       translateX: 100,
       duration: 7,
       repeatDelay: 7,
-      className: "h-6",
+      height: getRandomHeight(),
+      colorTheme: getRandomColorTheme(),
+      width: getRandomWidth(),
     },
     {
       initialX: 400,
@@ -42,20 +76,26 @@ export const BackgroundBeamsWithCollision = ({
       duration: 5,
       repeatDelay: 14,
       delay: 4,
+      colorTheme: getRandomColorTheme(),
+      width: getRandomWidth(),
     },
     {
       initialX: 800,
       translateX: 800,
       duration: 11,
       repeatDelay: 2,
-      className: "h-20",
+      height: getRandomHeight(),
+      colorTheme: getRandomColorTheme(),
+      width: getRandomWidth(),
     },
     {
       initialX: 1000,
       translateX: 1000,
       duration: 4,
       repeatDelay: 2,
-      className: "h-12",
+      height: getRandomHeight(),
+      colorTheme: getRandomColorTheme(),
+      width: getRandomWidth(),
     },
     {
       initialX: 1200,
@@ -63,7 +103,49 @@ export const BackgroundBeamsWithCollision = ({
       duration: 6,
       repeatDelay: 4,
       delay: 2,
-      className: "h-6",
+      height: getRandomHeight(),
+      colorTheme: getRandomColorTheme(),
+      width: getRandomWidth(),
+    },
+    {
+      initialX: 1400,
+      translateX: 1400,
+      duration: 6,
+      repeatDelay: 4,
+      delay: 2,
+      height: getRandomHeight(),
+      colorTheme: getRandomColorTheme(),
+      width: getRandomWidth(),
+    },
+    {
+      initialX: 1600,
+      translateX: 1600,
+      duration: 6,
+      repeatDelay: 4,
+      delay: 2,
+      height: getRandomHeight(),
+      colorTheme: getRandomColorTheme(),
+      width: getRandomWidth(),
+    },
+    {
+      initialX: 1800,
+      translateX: 1800,
+      duration: 6,
+      repeatDelay: 4,
+      delay: 2,
+      height: getRandomHeight(),
+      colorTheme: getRandomColorTheme(),
+      width: getRandomWidth(),
+    },
+    {
+      initialX: 1960,
+      translateX: 1960,
+      duration: 6,
+      repeatDelay: 4,
+      delay: 2,
+      className: "h-6 w-6",
+      colorTheme: getRandomColorTheme(),
+      height: getRandomHeight(),
     },
   ];
 
@@ -113,6 +195,9 @@ const CollisionMechanism = React.forwardRef<
       duration?: number;
       delay?: number;
       repeatDelay?: number;
+      colorTheme?: string;
+      width?: string;
+      height?: string;
     };
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -127,7 +212,7 @@ const CollisionMechanism = React.forwardRef<
   });
   const [beamKey, setBeamKey] = useState(0);
   const [cycleCollisionDetected, setCycleCollisionDetected] = useState(false);
-  const [pageHeight, setPageHeight] = useState("3000px"); // Default fallback height
+  const [pageHeight, setPageHeight] = useState("6000px"); // Default fallback height
 
   // Calculate and update page height
   useEffect(() => {
@@ -144,13 +229,10 @@ const CollisionMechanism = React.forwardRef<
 
     updatePageHeight();
     window.addEventListener("resize", updatePageHeight);
-
-    // Update height again after a short delay to account for dynamic content
-    const timeoutId = setTimeout(updatePageHeight, 500);
+    window.addEventListener("scroll", updatePageHeight);
 
     return () => {
       window.removeEventListener("resize", updatePageHeight);
-      clearTimeout(timeoutId);
     };
   }, [parentRef]);
 
@@ -228,8 +310,11 @@ const CollisionMechanism = React.forwardRef<
           repeatDelay: beamOptions.repeatDelay || 0,
         }}
         className={cn(
-          "absolute left-0 top-20 m-auto h-14 w-px rounded-full bg-gradient-to-t from-indigo-500 via-purple-500 to-transparent",
-          beamOptions.className
+          "absolute left-0 top-20 m-auto h-14 rounded-full bg-gradient-to-t",
+          beamOptions.colorTheme,
+          beamOptions.className,
+          beamOptions.width,
+          beamOptions.height
         )}
       />
       <AnimatePresence>
@@ -237,6 +322,7 @@ const CollisionMechanism = React.forwardRef<
           <Explosion
             key={`${collision.coordinates.x}-${collision.coordinates.y}`}
             className=""
+            color={beamOptions.colorTheme}
             style={{
               left: `${collision.coordinates.x}px`,
               top: `${collision.coordinates.y}px`,
@@ -251,7 +337,24 @@ const CollisionMechanism = React.forwardRef<
 
 CollisionMechanism.displayName = "CollisionMechanism";
 
-const Explosion = ({ ...props }: React.HTMLProps<HTMLDivElement>) => {
+const Explosion = ({
+  colorTheme,
+  ...props
+}: React.HTMLProps<HTMLDivElement> & { colorTheme?: string }) => {
+  const getExplosionColors = () => {
+    if (!colorTheme) return "from-indigo-500 to-purple-500";
+
+    // Extract the color names from the colorTheme string
+    const matches = colorTheme.match(/from-([\w-]+).*?via-([\w-]+)/);
+    if (matches && matches.length >= 3) {
+      return `from-${matches[1]} to-${matches[2]}`;
+    }
+
+    return "from-indigo-500 to-purple-500";
+  };
+
+  const explosionColors = getExplosionColors();
+
   const spans = Array.from({ length: 20 }, (_, index) => ({
     id: index,
     initialX: 0,
@@ -267,7 +370,14 @@ const Explosion = ({ ...props }: React.HTMLProps<HTMLDivElement>) => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 1.5, ease: "easeOut" }}
-        className="absolute -inset-x-10 top-0 m-auto h-2 w-10 rounded-full bg-gradient-to-r from-transparent via-indigo-500 to-transparent blur-sm"
+        className={`absolute -inset-x-10 top-0 m-auto h-2 w-10 rounded-full bg-gradient-to-r from-transparent ${
+          colorTheme
+            ? colorTheme
+                .replace("from-", "via-")
+                .replace("via-", "")
+                .replace("to-transparent", "")
+            : "via-indigo-500"
+        } to-transparent blur-sm`}
       ></motion.div>
       {spans.map((span) => (
         <motion.span
@@ -279,7 +389,7 @@ const Explosion = ({ ...props }: React.HTMLProps<HTMLDivElement>) => {
             opacity: 0,
           }}
           transition={{ duration: Math.random() * 1.5 + 0.5, ease: "easeOut" }}
-          className="absolute h-1 w-1 rounded-full bg-gradient-to-b from-indigo-500 to-purple-500"
+          className={`absolute h-1 w-1 rounded-full bg-gradient-to-b ${explosionColors}`}
         />
       ))}
     </div>
