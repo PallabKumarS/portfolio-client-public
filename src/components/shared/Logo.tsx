@@ -12,7 +12,7 @@ const Logo = () => {
         className="p-4 text-center"
       >
         <Link
-          href="/dashboard"
+          href="/"
           className="font-bold text-2xl bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent"
         >
           Pallab Kumar Sarker
