@@ -58,7 +58,7 @@ const ProjectDetails = ({ data }: { data: TProject & TMongoose }) => {
               <Badge
                 key={tech}
                 variant="secondary"
-                className="bg-muted/50 hover:bg-muted/70 transition-colors"
+                className="bg-muted/50 hover:bg-muted/70 transition-colors capitalize"
               >
                 {tech}
               </Badge>
