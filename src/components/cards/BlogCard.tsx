@@ -44,7 +44,11 @@ const BlogCard = ({ data }: BlogCardProps) => {
           </CardItem>
 
           <CardItem className="text-neutral-500 text-xs sm:text-sm dark:text-neutral-300 line-clamp-3">
-            {content}
+            {content.includes("<") && content.includes(">") ? (
+              <div dangerouslySetInnerHTML={{ __html: content }} />
+            ) : (
+              content
+            )}
           </CardItem>
 
           <CardItem className="mt-auto">
