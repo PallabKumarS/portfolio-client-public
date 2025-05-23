@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import ImageCarousel from "@/components/shared/ImageCarousel";
 import { FiArrowRight, FiGithub, FiGlobe } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { TMongoose, TProject } from "@/types/types";
@@ -13,6 +12,7 @@ import { getAllProjects } from "@/services/api.services";
 import { LoaderComponent } from "../shared/LoaderComponent";
 import { FaStar } from "react-icons/fa";
 import { NoData } from "../shared/NoData";
+import ImageSlider from "../shared/ImageSlider";
 
 // Animation variants
 const containerVariants = {
@@ -69,6 +69,11 @@ const badgeVariants = {
   },
 };
 
+const fadeIn = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.6 } },
+};
+
 const Featured = () => {
   const [projects, setProjects] = useState<(TProject & TMongoose)[]>([]);
   const [loading, setLoading] = useState(true);
@@ -108,13 +113,22 @@ const Featured = () => {
         viewport={{ once: true }}
         className="container mx-auto"
       >
-        <motion.h2
-          variants={titleVariants}
-          className="text-3xl md:text-4xl font-bold text-center mb-12 relative"
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeIn}
+          className="mb-5 text-center"
         >
-          <span className="relative z-10">Featured Projects</span>
-          <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 h-1 w-20 bg-gradient-to-r from-primary to-secondary rounded-full"></span>
-        </motion.h2>
+          <h1 className="text-4xl font-bold mb-3">Featured</h1>
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: "80px" }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="h-1 bg-primary mx-auto rounded-full"
+          ></motion.div>
+        </motion.div>
 
         <div className="space-y-16">
           {projects.map((project, index) => {
@@ -160,10 +174,7 @@ const Featured = () => {
                         }`}
                       >
                         <div className="p-6 h-full">
-                          <ImageCarousel
-                            images={project.images}
-                            title={project.title}
-                          />
+                          <ImageSlider images={project.images} variant="card" />
                         </div>
                       </motion.div>
 

@@ -150,6 +150,11 @@ const SkillSet = () => {
     fetchSkillData();
   }, []);
 
+  const fadeIn = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.6 } },
+  };
+
   if (loading) {
     return <LoaderComponent centered size="xl" text="Loading Skills..." />;
   }
@@ -174,13 +179,20 @@ const SkillSet = () => {
     <div className="mx-auto py-12 px-4">
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="mb-12 text-center"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeIn}
+        className="mb-5 text-center"
       >
-        <h1 className="text-4xl font-bold mb-2">My Skills</h1>
-        <div className="h-1 w-20 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
+        <h1 className="text-4xl font-bold mb-3">Skills</h1>
+        <motion.div
+          initial={{ width: 0 }}
+          whileInView={{ width: "80px" }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="h-1 bg-primary mx-auto rounded-full"
+        ></motion.div>
       </motion.div>
 
       <motion.div

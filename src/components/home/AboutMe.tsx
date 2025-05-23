@@ -74,9 +74,7 @@ const About = () => {
   };
 
   if (loading) {
-    return (
-      <LoaderComponent centered size="xl" text="Loading about information..." />
-    );
+    return <LoaderComponent centered size="xl" text="Loading information..." />;
   }
 
   if (error) {
@@ -180,7 +178,7 @@ const About = () => {
                 onClick={handleDownloadResume}
                 className="relative overflow-hidden group"
               >
-                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary to-secondary opacity-90 group-hover:opacity-100 transition-opacity"></span>
+                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary to-secondary opacity-50 group-hover:opacity-100 transition-opacity"></span>
                 <span className="relative flex items-center z-10">
                   <FaDownload className="mr-2" /> Download Resume
                 </span>

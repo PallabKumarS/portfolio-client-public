@@ -3,10 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { FiGithub, FiGlobe } from "react-icons/fi";
 import Link from "next/link";
-import ImageCarousel from "@/components/shared/ImageCarousel";
 import { TMongoose, TProject } from "@/types/types";
 import { TextGenerateEffect } from "@/components/ui/TextGenerateEffect";
 import ContainerComponent from "@/components/shared/ContainerComponent";
+import ImageSlider from "@/components/shared/ImageSlider";
 
 const ProjectDetails = ({ data }: { data: TProject & TMongoose }) => {
   const {
@@ -44,7 +44,7 @@ const ProjectDetails = ({ data }: { data: TProject & TMongoose }) => {
 
           {/* Image Carousel */}
           <div className="w-full aspect-video">
-            <ImageCarousel images={images} title={title} />
+            <ImageSlider images={images} variant="detail" />
           </div>
 
           {/* Description */}

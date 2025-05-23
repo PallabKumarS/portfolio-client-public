@@ -6,9 +6,9 @@ import { Card } from "@/components/ui/card";
 import { FiEye, FiGithub, FiGlobe } from "react-icons/fi";
 import Link from "next/link";
 import { CardBody, CardContainer, CardItem } from "../ui/3d-card";
-import { BackgroundGradient } from "../ui/gradient";
-import ImageCarousel from "../shared/ImageCarousel";
 import { TMongoose, TProject } from "@/types/types";
+import ImageSlider from "../shared/ImageSlider";
+import MovingGradientBorder from "../shared/MovingBorder";
 
 interface ProjectCardProps {
   data: TProject & TMongoose;
@@ -28,7 +28,7 @@ const ProjectCard = ({ data }: ProjectCardProps) => {
 
   return (
     <CardContainer className="inter-var w-72 sm:w-96 md:w-full ">
-      <BackgroundGradient className="rounded-[22px] p-4 bg-white dark:bg-zinc-900">
+      <MovingGradientBorder className="rounded-[22px] p-4 bg-white dark:bg-zinc-900">
         <Card className="w-full bg-transparent border-none">
           <CardBody className="relative w-72 sm:w-96 md:w-full h-fit flex flex-col gap-y-3 dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] rounded-xl p-2 md:p-6">
             {/* title  */}
@@ -37,7 +37,7 @@ const ProjectCard = ({ data }: ProjectCardProps) => {
             </CardItem>
             {/* image here  */}
             <CardItem className="">
-              <ImageCarousel images={images} title={title} />
+              <ImageSlider images={images} variant="card" />
             </CardItem>
             {/* description here  */}
             <CardItem className="text-neutral-500 text-xs sm:text-sm mt-4 dark:text-neutral-300 line-clamp-3">
@@ -123,7 +123,7 @@ const ProjectCard = ({ data }: ProjectCardProps) => {
             </CardItem>
           </CardBody>
         </Card>
-      </BackgroundGradient>
+      </MovingGradientBorder>
     </CardContainer>
   );
 };
