@@ -21,7 +21,7 @@ const Navbar = () => {
   const routes = [
     { name: "Home", path: "/" },
     { name: "Projects", path: "/projects" },
-    { name: "Blogs", path: "/blogs" },
+    // { name: "Blogs", path: "/blogs" },
     { name: "Contact", path: "/contact" },
   ];
 
@@ -30,7 +30,7 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.3 }}
-      className="navbar-gradient backdrop-blur supports-[backdrop-filter]:bg-background/60 px-5 py-2 w-screen border-b"
+      className="navbar-gradient backdrop-blur supports-backdrop-filter:bg-background/60 px-5 py-2 w-screen border-b"
     >
       <ContainerComponent className="sticky top-0 left-0 z-40">
         <div className="flex h-14 items-center justify-between mx-auto">
@@ -57,7 +57,7 @@ const Navbar = () => {
                   {pathname === route.path && (
                     <motion.div
                       layoutId="underline"
-                      className="absolute left-0 top-full h-[2px] w-full bg-primary"
+                      className="absolute left-0 top-full h-0.5 w-full bg-primary"
                     />
                   )}
                 </Link>
