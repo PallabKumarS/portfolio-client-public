@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -125,7 +126,7 @@ const About = () => {
 
             {/* Main image container */}
             <div className="relative h-full w-full overflow-hidden rounded-lg shadow-xl border border-primary/20 bg-card">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 z-0"></div>
+              <div className="absolute inset-0 bg-linear-to-br from-primary/10 to-secondary/10 z-0"></div>
               <Image
                 src={aboutData.image}
                 alt={aboutData.name}
@@ -147,7 +148,7 @@ const About = () => {
           className="space-y-6"
         >
           <motion.div variants={slideUp}>
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <h2 className="text-3xl font-bold bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">
               {aboutData.name}
             </h2>
             <p className="text-xl text-muted-foreground mt-1">
@@ -178,7 +179,7 @@ const About = () => {
                 onClick={handleDownloadResume}
                 className="relative overflow-hidden group"
               >
-                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary to-secondary opacity-50 group-hover:opacity-100 transition-opacity"></span>
+                <span className="absolute inset-0 w-full h-full bg-linear-to-r from-primary to-secondary opacity-50 group-hover:opacity-100 transition-opacity"></span>
                 <span className="relative flex items-center z-10">
                   <FaDownload className="mr-2" /> Download Resume
                 </span>
@@ -215,7 +216,7 @@ const About = () => {
               transition={{ delay: index * 0.1 }}
             >
               <Card className="overflow-hidden h-full group transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 border border-border/50">
-                <div className="h-1 w-full bg-gradient-to-r from-primary to-secondary transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+                <div className="h-1 w-full bg-linear-to-r from-primary to-secondary transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
                 <CardContent className="p-6 pt-5">
                   <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
                     {edu.degree}
@@ -270,7 +271,7 @@ const About = () => {
                 transition={{ delay: index * 0.1 }}
               >
                 <Card className="overflow-hidden group transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 border border-border/50">
-                  <div className="h-1 w-full bg-gradient-to-r from-primary to-secondary transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+                  <div className="h-1 w-full bg-linear-to-r from-primary to-secondary transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
                   <CardContent className="p-6 pt-5">
                     <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
                       <div>

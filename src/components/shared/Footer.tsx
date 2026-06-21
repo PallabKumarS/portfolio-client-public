@@ -51,7 +51,8 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="text-muted-foreground text-center mt-4">
-          Copyright © 2025 - All right reserved
+          Copyright © {new Date().getFullYear()} - All rights reserved by Pallab
+          Kumar Sarker
         </div>
       </ContainerComponent>
     </div>

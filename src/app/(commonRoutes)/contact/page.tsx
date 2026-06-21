@@ -1,5 +1,5 @@
 import ContactForm from "@/components/forms/ContactForm";
-import Profile from "@/components/Profile";
+import Profile from "./Profile";
 import { BackgroundBeams } from "@/components/ui/BackgroundBeams";
 import { TextGenerateEffect } from "@/components/ui/TextGenerateEffect";
 import { Metadata } from "next";
@@ -14,7 +14,7 @@ const ContactPage = () => {
 
   return (
     <div className="min-h-screen w-full relative">
-      <div className="container mx-auto p-4 mt-10 mb-5 relative z-10 bg-black/30 rounded-lg">
+      <div className="container mx-auto p-4 mt-10 mb-5 relative z-10 rounded-lg">
         <TextGenerateEffect
           words={words}
           className="text-3xl md:text-4xl font-bold text-center mb-8 text-white/90"

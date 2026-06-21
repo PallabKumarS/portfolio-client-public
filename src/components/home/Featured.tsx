@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { FiArrowRight, FiGithub, FiGlobe } from "react-icons/fi";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { TMongoose, TProject } from "@/types/types";
 import { getAllProjects } from "@/services/api.services";
 import { LoaderComponent } from "../shared/LoaderComponent";
@@ -35,7 +35,7 @@ const itemVariants = {
   },
 };
 
-const featuredItemVariants = {
+const featuredItemVariants: Variants = {
   hidden: { opacity: 0, y: 50, scale: 0.95 },
   visible: {
     opacity: 1,
@@ -87,6 +87,7 @@ const Featured = () => {
           setProjects(res.data.slice(0, 3));
         }
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error("Error fetching projects:", error);
       } finally {
         setLoading(false);
@@ -143,7 +144,7 @@ const Featured = () => {
             return (
               <motion.div
                 key={project._id}
-                variants={currentVariant}
+                variants={currentVariant as Variants}
                 whileHover={isFeatured ? { scale: 1.02 } : {}}
                 className={`max-w-6xl mx-auto ${
                   isFeatured ? "relative z-10" : ""
@@ -161,7 +162,7 @@ const Featured = () => {
                   className={`overflow-hidden backdrop-blur-sm border-border/50 transition-all duration-300
                     ${
                       isFeatured
-                        ? "bg-gradient-to-br from-card/70 to-background/70 shadow-xl shadow-primary/20 border-primary/30"
+                        ? "bg-linear-to-br from-card/70 to-background/70 shadow-xl shadow-primary/20 border-primary/30"
                         : "bg-card/50 hover:shadow-lg hover:shadow-primary/10"
                     }`}
                 >
@@ -203,7 +204,7 @@ const Featured = () => {
                           <div
                             className={`h-1 w-16 rounded-full mb-4 ${
                               isFeatured
-                                ? "bg-gradient-to-r from-primary to-secondary"
+                                ? "bg-linear-to-r from-primary to-secondary"
                                 : "bg-primary/70"
                             }`}
                           ></div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import { FaGithub, FaLinkedin, FaFacebook } from "react-icons/fa";
 
@@ -23,7 +23,7 @@ const Banner = () => {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
@@ -33,7 +33,7 @@ const Banner = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-tr from-background via-background/95 to-primary/10">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-linear-to-tr from-background via-background/95 to-primary/10">
       {/* Improved background design */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-0 w-full h-full bg-grid-pattern opacity-5"></div>
@@ -58,7 +58,7 @@ const Banner = () => {
 
             <motion.h1
               variants={itemVariants}
-              className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+              className="text-4xl md:text-6xl font-bold mb-4 bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent"
             >
               Hi, I&apos;m{" "}
               <span className="text-primary">Pallab Kumar Sarker</span>
@@ -127,7 +127,7 @@ const Banner = () => {
           >
             {/* Code visualization element */}
             <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-lg blur opacity-75 animate-pulse"></div>
+              <div className="absolute -inset-1 bg-linear-to-r from-primary to-secondary rounded-lg blur opacity-75 animate-pulse"></div>
               <div className="relative bg-background/80 backdrop-blur-sm rounded-lg p-5 border border-muted shadow-xl">
                 <pre className="text-xs md:text-sm font-mono overflow-hidden">
                   <code className="language-javascript">

@@ -1,6 +1,6 @@
 "use client";
 
-import BlogCard from "@/components/cards/BlogCard";
+import BlogAdminCard from "@/components/cards/BlogAdminCard";
 import { NoData } from "@/components/shared/NoData";
 import { TBlog, TMongoose } from "@/types/types";
 
@@ -14,7 +14,7 @@ const AllBlogs = ({ data }: { data: (TBlog & TMongoose)[] }) => {
         {data?.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 items-center justify-center gap-4">
             {data?.map((blog) => (
-              <BlogCard data={blog} key={blog?._id} />
+              <BlogAdminCard data={blog} key={blog?._id} />
             ))}
           </div>
         ) : (

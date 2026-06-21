@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
@@ -161,7 +162,7 @@ const SkillSet = () => {
 
   // Group skills by category
   const frontendSkills = skills.filter(
-    (skill) => skill.category === "frontend"
+    (skill) => skill.category === "frontend",
   );
   const backendSkills = skills.filter((skill) => skill.category === "backend");
   const toolsSkills = skills.filter((skill) => skill.category === "tools");
@@ -206,7 +207,7 @@ const SkillSet = () => {
         {frontendSkills.length > 0 && (
           <motion.div variants={cardVariants} className="col-span-1">
             <Card className="h-full overflow-hidden border border-border/50 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300">
-              <div className="h-1 w-full bg-gradient-to-r from-primary to-secondary"></div>
+              <div className="h-1 w-full bg-linear-to-r from-primary to-secondary"></div>
               <CardHeader className="flex flex-row items-center gap-3 pb-2">
                 <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10">
                   <FaCode className="text-xl text-primary" />
@@ -244,7 +245,7 @@ const SkillSet = () => {
                             delay: 0.2 + index * 0.1,
                           }}
                           className={`h-full rounded-full ${getProficiencyColorClass(
-                            skill.proficiency
+                            skill.proficiency,
                           )}`}
                         />
                       </div>
@@ -260,7 +261,7 @@ const SkillSet = () => {
         {backendSkills.length > 0 && (
           <motion.div variants={cardVariants} className="col-span-1">
             <Card className="h-full overflow-hidden border border-border/50 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300">
-              <div className="h-1 w-full bg-gradient-to-r from-secondary to-primary"></div>
+              <div className="h-1 w-full bg-linear-to-r from-secondary to-primary"></div>
               <CardHeader className="flex flex-row items-center gap-3 pb-2">
                 <div className="flex items-center justify-center w-10 h-10 rounded-full bg-secondary/10">
                   <FaServer className="text-xl text-primary" />
@@ -298,7 +299,7 @@ const SkillSet = () => {
                             delay: 0.2 + index * 0.1,
                           }}
                           className={`h-full rounded-full ${getProficiencyColorClass(
-                            skill.proficiency
+                            skill.proficiency,
                           )}`}
                         />
                       </div>
@@ -314,7 +315,7 @@ const SkillSet = () => {
         {toolsSkills.length > 0 && (
           <motion.div variants={cardVariants} className="col-span-1">
             <Card className="h-full overflow-hidden border border-border/50 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300">
-              <div className="h-1 w-full bg-gradient-to-r from-accent to-primary"></div>
+              <div className="h-1 w-full bg-linear-to-r from-accent to-primary"></div>
               <CardHeader className="flex flex-row items-center gap-3 pb-2">
                 <div className="flex items-center justify-center w-10 h-10 rounded-full bg-accent/10">
                   <FaTools className="text-xl text-primary" />
@@ -352,7 +353,7 @@ const SkillSet = () => {
                             delay: 0.2 + index * 0.1,
                           }}
                           className={`h-full rounded-full ${getProficiencyColorClass(
-                            skill.proficiency
+                            skill.proficiency,
                           )}`}
                         />
                       </div>

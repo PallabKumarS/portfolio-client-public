@@ -28,6 +28,7 @@ const NotFound = () => {
             height={400}
             className="mx-auto rounded-lg"
             priority
+            unoptimized
           />
         </motion.div>
 

@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 const MovingGradientBorder = ({
   children,
   className,
-  borderWidth = 2,
   duration = 8,
 }: {
   children: React.ReactNode;
@@ -23,7 +22,7 @@ const MovingGradientBorder = ({
   }, []);
 
   return (
-    <div className={cn("relative p-[2px] group overflow-hidden rounded-3xl")}>
+    <div className={cn("relative p-0.5 group overflow-hidden rounded-3xl")}>
       {mounted && (
         <>
           {/* Moving gradient border */}
@@ -80,7 +79,7 @@ const MovingGradientBorder = ({
       <div
         className={cn(
           "relative z-10 bg-background rounded-[calc(1.5rem-2px)] h-full w-full",
-          className
+          className,
         )}
       >
         {children}

@@ -3,15 +3,11 @@ import "./globals.css";
 import ThemeProvider from "@/provider/ThemeProvider";
 import { Toaster } from "sonner";
 import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
-import Navbar from "@/components/shared/Navbar";
-import Footer from "@/components/shared/Footer";
 
 export const metadata: Metadata = {
   title: "PKS Portfolio",
   description: "Portfolio of Pallab Kumar Sarker (PKS)",
 };
-
-
 
 export default async function RootLayout({
   children,
@@ -28,11 +24,7 @@ export default async function RootLayout({
         >
           <BackgroundBeamsWithCollision className="h-min-fit">
             <div>
-              <div className="min-h-screen">
-                <Navbar />
-                <div className="h-full">{children}</div>
-              </div>
-              <Footer />
+              <div className="h-full">{children}</div>
             </div>
           </BackgroundBeamsWithCollision>
           <Toaster />

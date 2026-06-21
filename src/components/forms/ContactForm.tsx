@@ -53,6 +53,7 @@ export default function ContactForm() {
         }
       });
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error("Form submission error", error);
       toast.error("Failed to submit the form. Please try again.", {
         id: toastId,
