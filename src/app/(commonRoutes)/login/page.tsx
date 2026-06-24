@@ -1,3 +1,4 @@
+import ContainerComponent from "@/components/shared/ContainerComponent";
 import LoginPage from "./LoginPage";
 import { Metadata } from "next";
 import { Suspense } from "react";
@@ -9,9 +10,11 @@ export const metadata: Metadata = {
 
 const page = () => {
   return (
-    <Suspense>
-      <LoginPage />
-    </Suspense>
+    <ContainerComponent>
+      <Suspense>
+        <LoginPage />
+      </Suspense>
+    </ContainerComponent>
   );
 };
 

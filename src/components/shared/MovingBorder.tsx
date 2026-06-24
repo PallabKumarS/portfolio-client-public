@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
 
 const MovingGradientBorder = ({
   children,
@@ -15,65 +12,14 @@ const MovingGradientBorder = ({
   duration?: number;
   gradientColors?: string;
 }) => {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
-    <div className={cn("relative p-0.5 group overflow-hidden rounded-3xl")}>
-      {mounted && (
-        <>
-          {/* Moving gradient border */}
-          <motion.div
-            className="absolute inset-0 z-0"
-            style={
-              {
-                background: `linear-gradient(var(--rotate), var(--primary), var(--secondary), var(--accent), var(--primary))`,
-                backgroundSize: "300% 300%",
-                "--rotate": "0deg",
-              } as any
-            }
-            animate={
-              {
-                "--rotate": ["0deg", "360deg"],
-                backgroundPosition: ["0% 0%", "100% 100%"],
-              } as any
-            }
-            transition={{
-              duration,
-              repeat: Infinity,
-              repeatType: "loop",
-              ease: "linear",
-            }}
-          />
-
-          {/* Blur effect for the border */}
-          <motion.div
-            className="absolute inset-0 z-0 opacity-50 blur-sm"
-            style={
-              {
-                background: `linear-gradient(var(--rotate), var(--primary), var(--secondary), var(--accent), var(--primary))`,
-                backgroundSize: "300% 300%",
-                "--rotate": "0deg",
-              } as any
-            }
-            animate={
-              {
-                "--rotate": ["0deg", "360deg"],
-                backgroundPosition: ["0% 0%", "100% 100%"],
-              } as any
-            }
-            transition={{
-              duration: duration * 1.2,
-              repeat: Infinity,
-              repeatType: "loop",
-              ease: "linear",
-            }}
-          />
-        </>
-      )}
+    <div
+      className={cn("moving-border-wrapper relative p-0.5 group overflow-hidden rounded-3xl")}
+      style={{ "--border-duration": `${duration}s` } as React.CSSProperties}
+    >
+      {/* Pure CSS conic-gradient border — GPU composited, zero JS overhead */}
+      <div className="moving-border-gradient absolute inset-0 z-0" />
+      <div className="moving-border-gradient absolute inset-0 z-0 opacity-50 blur-sm" />
 
       {/* Content container */}
       <div

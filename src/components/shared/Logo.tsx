@@ -9,11 +9,11 @@ const Logo = () => {
       <motion.div
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="p-4 text-center"
+        className="py-4 text-center"
       >
         <Link
           href="/"
-          className="font-bold text-2xl bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent"
+          className="font-bold text-2xl bg-linear-to-r from-primary to-primary/70 bg-clip-text text-transparent"
         >
           Pallab Kumar Sarker
         </Link>

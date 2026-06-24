@@ -1,7 +1,7 @@
-/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useEffect, useState } from "react";
+import { use } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -13,8 +13,6 @@ import {
 } from "react-icons/fa";
 import { Card, CardContent } from "@/components/ui/card";
 import { TEducation, TExperience, TAbout } from "@/types/types";
-import { getAboutMe } from "@/services/api.services";
-import { LoaderComponent } from "../shared/LoaderComponent";
 
 // Animation variants
 const fadeIn = {
@@ -42,26 +40,9 @@ const staggerContainer = {
   },
 };
 
-const About = () => {
-  const [aboutData, setAboutData] = useState<TAbout | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchAboutData = async () => {
-      try {
-        const response = await getAboutMe();
-        setAboutData(response?.data[0]);
-      } catch (err) {
-        console.error("Error fetching about information:", err);
-        setError("Failed to load about information. Please try again later.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAboutData();
-  }, []);
+const About = ({ dataPromise }: { dataPromise: Promise<any> }) => {
+  const response = use(dataPromise);
+  const aboutData: TAbout | null = response?.data?.[0] ?? null;
 
   const handleDownloadResume = () => {
     if (!aboutData?.resumeLink) return;
@@ -74,14 +55,6 @@ const About = () => {
     document.body.removeChild(link);
   };
 
-  if (loading) {
-    return <LoaderComponent centered size="xl" text="Loading information..." />;
-  }
-
-  if (error) {
-    return <div className="text-center text-destructive py-10">{error}</div>;
-  }
-
   if (!aboutData) {
     return (
       <div className="text-center text-muted-foreground py-10">
@@ -91,7 +64,7 @@ const About = () => {
   }
 
   return (
-    <div className="mx-auto py-16 px-4 mb-5">
+    <div className="mx-auto py-20 mb-5">
       {/* Header with animated underline */}
       <motion.div
         initial="hidden"
@@ -119,7 +92,7 @@ const About = () => {
           variants={slideInLeft}
           className="flex justify-center md:justify-between items-center"
         >
-          <div className="relative w-72 h-80 md:w-80 md:h-96">
+          <div className="relative w-72 h-80 md:w-80 md:h-96 ml-6">
             {/* Decorative elements */}
             <div className="absolute -top-4 -left-4 w-full h-full bg-primary/10 rounded-lg transform rotate-3"></div>
             <div className="absolute -bottom-4 -right-4 w-full h-full bg-secondary/10 rounded-lg transform -rotate-3"></div>
@@ -177,9 +150,8 @@ const About = () => {
             <motion.div variants={slideUp}>
               <Button
                 onClick={handleDownloadResume}
-                className="relative overflow-hidden group"
+                className="relative overflow-hidden bg-linear-to-r from-primary/20 via-primary/50 to-primary/90 transition-colors"
               >
-                <span className="absolute inset-0 w-full h-full bg-linear-to-r from-primary to-secondary opacity-50 group-hover:opacity-100 transition-opacity"></span>
                 <span className="relative flex items-center z-10">
                   <FaDownload className="mr-2" /> Download Resume
                 </span>

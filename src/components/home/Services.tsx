@@ -17,7 +17,7 @@ const Services = () => {
         whileHover={{ scale: 1.05 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        <Card className="max-w-[400px] bg-gray-800 h-80">
+        <Card className="max-w-100 bg-gray-800 h-80">
           <CardHeader className="flex gap-3 justify-center">
             <Image alt="logo fe" src={frontEnd} width={40}></Image>
             <p className="text-xl text-gray-300">Front End Development</p>
@@ -43,7 +43,7 @@ const Services = () => {
         whileHover={{ scale: 1.05 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        <Card className="max-w-[400px] bg-gray-800 h-80">
+        <Card className="max-w-100 bg-gray-800 h-80">
           <CardHeader className="flex gap-3 justify-center">
             <Image alt="logo fe" src={backEnd} width={40}></Image>
             <p className="text-xl text-gray-300">Back End Development</p>
@@ -71,7 +71,7 @@ const Services = () => {
         whileHover={{ scale: 1.05 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        <Card className="max-w-[400px] bg-gray-800 h-80">
+        <Card className="max-w-100 bg-gray-800 h-80">
           <CardHeader className="flex gap-3 justify-center">
             <Image alt="logo fe" src={fullStack} width={40}></Image>
             <p className="text-xl text-gray-300">Full Stack Development</p>

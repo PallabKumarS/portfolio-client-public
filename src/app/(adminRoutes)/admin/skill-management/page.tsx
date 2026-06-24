@@ -1,19 +1,25 @@
-import ContainerComponent from "@/components/shared/ContainerComponent";
 import { Metadata } from "next";
 import AdminSkillPage from "./AdminSkillPage";
+import { getAllSkills } from "@/services/skill.service";
+import { Suspense } from "react";
+import { LoaderComponent } from "@/components/shared/LoaderComponent";
+import ContainerAdminComponent from "@/components/shared/ContainerAdminComponent";
 
 export const metadata: Metadata = {
-  title: "Skill Management",
-  description:
-    "Skill Management page contains all the information about the user",
+  title: "Dashboard | Skill Management",
+  description: "Manage your technical skills and proficiency levels",
 };
 
-const page = () => {
+const SkillManagementPage = () => {
+  const skillsPromise = getAllSkills();
+
   return (
-    <ContainerComponent>
-      <AdminSkillPage />
-    </ContainerComponent>
+    <ContainerAdminComponent>
+      <Suspense fallback={<LoaderComponent centered size="xl" />}>
+        <AdminSkillPage dataPromise={skillsPromise} />
+      </Suspense>
+    </ContainerAdminComponent>
   );
 };
 
-export default page;
+export default SkillManagementPage;

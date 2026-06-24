@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 interface ImageSliderProps {
   images: string[];
   variant: "card" | "detail";
+  priority?: boolean;
 }
 
 const isValidImageUrl = (url: string) => {
@@ -19,7 +20,7 @@ const isValidImageUrl = (url: string) => {
   return pattern.test(url);
 };
 
-const ImageSlider = ({ images, variant }: ImageSliderProps) => {
+const ImageSlider = ({ images, variant, priority = false }: ImageSliderProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fallbackImage, setFallbackImage] = useState(
     "https://res.cloudinary.com/dchqfpvjb/image/upload/v1744367811/CJrg-LWjjfsCEAE_rlwotv.png"
@@ -66,7 +67,7 @@ const ImageSlider = ({ images, variant }: ImageSliderProps) => {
                 ? "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 : "100vw"
             }
-            priority={variant === "detail"}
+            priority={priority || variant === "detail"}
           />
         </motion.div>
       </AnimatePresence>

@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import AllBlogs from "./AllBlogs";
 import { getAllBlogs } from "@/services/api.services";
+import ContainerComponent from "@/components/shared/ContainerComponent";
 
 export const metadata: Metadata = {
   title: "Portfolio | Blogs",
@@ -11,8 +12,8 @@ export default async function BlogsPage() {
   const res = await getAllBlogs();
 
   return (
-    <div className="container mx-auto py-10 md:px-5 min-h-screen">
+    <ContainerComponent className="py-10 min-h-screen">
       <AllBlogs data={res?.data} />
-    </div>
+    </ContainerComponent>
   );
 }

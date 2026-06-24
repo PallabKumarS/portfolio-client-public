@@ -29,6 +29,7 @@ const ErrorPage = ({
             width={300}
             height={300}
             className="mx-auto"
+            style={{ width: "auto", height: "auto" }}
           />
         </motion.div>
 

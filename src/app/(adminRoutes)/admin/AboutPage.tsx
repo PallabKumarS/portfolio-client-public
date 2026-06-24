@@ -1,9 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { LoaderComponent } from "@/components/shared/LoaderComponent";
-import { getAbout } from "@/services/about.service";
+import { use, useState } from "react";
 import { TAbout, TMongoose } from "@/types/types";
-import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -19,32 +18,13 @@ import { Modal } from "@/components/shared/Modal";
 import AboutForm from "@/components/forms/AboutForm";
 import { FileUploader } from "@/components/shared/FileUploader";
 
-const AboutPage = () => {
-  const [about, setAbout] = useState<TAbout & TMongoose>();
-  const [loading, setLoading] = useState<boolean>(true);
+const AboutPage = ({ dataPromise }: { dataPromise: Promise<any> }) => {
+  const response = use(dataPromise);
+  const about: (TAbout & TMongoose) | undefined = response?.data?.[0];
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
 
-  useEffect(() => {
-    const fetchAbout = async () => {
-      try {
-        const res = await getAbout();
-        setAbout(res?.data[0]);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (err: any) {
-        // eslint-disable-next-line no-console
-        console.error(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAbout();
-  }, []);
-
-  if (loading) return <LoaderComponent centered size={"xl"} />;
-
   return (
-    <div className="container mx-auto p-6 space-y-6">
+    <div className="mx-auto p-6 space-y-6">
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>

@@ -1,7 +1,7 @@
 "use server";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getValidToken } from "@/lib/verifyToken";
-import { revalidateTag } from "next/cache";
+import { updateTag } from "next/cache";
 
 // get all messages
 export const getAllMessages = async () => {
@@ -35,7 +35,7 @@ export const markAsRead = async (id: string) => {
       },
     });
 
-    revalidateTag("messages");
+    updateTag("messages");
 
     return await res.json();
   } catch (error: any) {
@@ -54,7 +54,7 @@ export const deleteMessage = async (id: string) => {
       },
     });
 
-    revalidateTag("messages");
+    updateTag("messages");
 
     return await res.json();
   } catch (error: any) {

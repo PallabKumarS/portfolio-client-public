@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
+
 import { TSkill, TMongoose } from "@/types/types";
 import ShimmerButton from "../shared/ShimmerButton";
 import { Loader2 } from "lucide-react";
@@ -75,6 +76,12 @@ export default function SkillForm({
   } = form;
 
   const proficiencyValue = watch("proficiency");
+
+  const getProficiencyLabel = (prof: number) => {
+    if (prof >= 80) return "Expert";
+    if (prof >= 50) return "Comfortable";
+    return "Familiar";
+  };
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const toastId = toast.loading(
@@ -200,7 +207,10 @@ export default function SkillForm({
           name="proficiency"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Proficiency Level ({proficiencyValue}%)</FormLabel>
+              <FormLabel>
+                Proficiency Level ({proficiencyValue}% -{" "}
+                {getProficiencyLabel(proficiencyValue)})
+              </FormLabel>
               <FormControl>
                 <div className="px-3">
                   <Slider

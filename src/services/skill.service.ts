@@ -2,7 +2,7 @@
 "use server";
 
 import { getValidToken } from "@/lib/verifyToken";
-import { revalidateTag } from "next/cache";
+import { updateTag } from "next/cache";
 import { FieldValues } from "react-hook-form";
 
 // get all  skills
@@ -38,7 +38,7 @@ export const createSkill = async (data: FieldValues) => {
       },
     });
 
-    revalidateTag("skills");
+    updateTag("skills");
 
     return await res.json();
   } catch (error: any) {
@@ -57,7 +57,7 @@ export const updateSkill = async (data: FieldValues, id: string) => {
         Authorization: await getValidToken(),
       },
     });
-    revalidateTag("skills");
+    updateTag("skills");
     return await res.json();
   } catch (error: any) {
     return error;

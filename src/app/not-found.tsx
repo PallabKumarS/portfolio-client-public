@@ -29,6 +29,7 @@ const NotFound = () => {
             className="mx-auto rounded-lg"
             priority
             unoptimized
+            style={{ width: "auto", height: "auto" }}
           />
         </motion.div>
 

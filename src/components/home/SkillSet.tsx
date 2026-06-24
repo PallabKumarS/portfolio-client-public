@@ -2,12 +2,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useEffect, useState } from "react";
+import { use } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader } from "../ui/card";
-import { getAllSkills } from "@/services/api.services";
-import { LoaderComponent } from "../shared/LoaderComponent";
 import * as FaIcons from "react-icons/fa";
 import * as SiIcons from "react-icons/si";
 import * as RiIcons from "react-icons/ri";
@@ -130,35 +128,84 @@ const DynamicIcon = ({
   }
 };
 
-const SkillSet = () => {
-  const [skills, setSkills] = useState<Skill[]>([]);
-  const [loading, setLoading] = useState(true);
+const SkillBar = ({ skill }: { skill: Skill }) => {
+  return (
+    <motion.div
+      variants={skillVariants}
+      className="flex items-center gap-3 py-1"
+    >
+      <div className="w-8 h-8 flex items-center justify-center rounded-md bg-primary/10 text-primary">
+        <DynamicIcon iconName={skill.icon} />
+      </div>
+      <span className="text-sm font-medium text-foreground">{skill.name}</span>
+    </motion.div>
+  );
+};
 
-  useEffect(() => {
-    const fetchSkillData = async () => {
-      try {
-        const res = await getAllSkills();
-        if (res?.data && Array.isArray(res.data)) {
-          setSkills(res.data);
-        }
-      } catch (err) {
-        console.error("Error fetching skills:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
+const fadeIn = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.6 } },
+};
 
-    fetchSkillData();
-  }, []);
+const renderSkillGroup = (skillsToRender: Skill[]) => {
+  const expert = skillsToRender.filter((s) => s.proficiency >= 80);
+  const comfortable = skillsToRender.filter(
+    (s) => s.proficiency >= 50 && s.proficiency < 80,
+  );
+  const familiar = skillsToRender.filter((s) => s.proficiency < 50);
 
-  const fadeIn = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.6 } },
-  };
+  return (
+    <motion.div variants={containerVariants} className="space-y-6">
+      {expert.length > 0 && (
+        <div className="space-y-3">
+          <h4 className="text-xs font-semibold text-primary/80 uppercase tracking-wider border-b border-border pb-1">
+            Expert
+          </h4>
+          <div className="space-y-4">
+            {expert.map((skill) => (
+              <SkillBar key={skill.name} skill={skill} />
+            ))}
+          </div>
+        </div>
+      )}
+      {comfortable.length > 0 && (
+        <div className="space-y-3">
+          <h4 className="text-xs font-semibold text-primary/80 uppercase tracking-wider border-b border-border pb-1">
+            Comfortable
+          </h4>
+          <div className="space-y-4">
+            {comfortable.map((skill) => (
+              <SkillBar
+                key={skill.name}
+                skill={skill}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+      {familiar.length > 0 && (
+        <div className="space-y-3">
+          <h4 className="text-xs font-semibold text-primary/80 uppercase tracking-wider border-b border-border pb-1">
+            Familiar
+          </h4>
+          <div className="space-y-4">
+            {familiar.map((skill) => (
+              <SkillBar
+                key={skill.name}
+                skill={skill}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+    </motion.div>
+  );
+};
 
-  if (loading) {
-    return <LoaderComponent centered size="xl" text="Loading Skills..." />;
-  }
+const SkillSet = ({ dataPromise }: { dataPromise: Promise<any> }) => {
+  const response = use(dataPromise);
+  const skills: Skill[] =
+    response?.data && Array.isArray(response.data) ? response.data : [];
 
   // Group skills by category
   const frontendSkills = skills.filter(
@@ -167,17 +214,8 @@ const SkillSet = () => {
   const backendSkills = skills.filter((skill) => skill.category === "backend");
   const toolsSkills = skills.filter((skill) => skill.category === "tools");
 
-  // Helper function to get color class based on proficiency
-  const getProficiencyColorClass = (proficiency: number) => {
-    if (proficiency >= 90) return "bg-green-500";
-    if (proficiency >= 80) return "bg-blue-500";
-    if (proficiency >= 70) return "bg-yellow-500";
-    if (proficiency >= 60) return "bg-primary";
-    return "bg-red-500";
-  };
-
   return (
-    <div className="mx-auto py-12 px-4">
+    <div className="mx-auto py-20">
       {/* Header */}
       <motion.div
         initial="hidden"
@@ -215,43 +253,7 @@ const SkillSet = () => {
                 <h3 className="text-xl font-semibold">Frontend Development</h3>
               </CardHeader>
               <CardContent className="space-y-5">
-                <motion.div variants={containerVariants} className="space-y-4">
-                  {frontendSkills.map((skill, index) => (
-                    <motion.div
-                      key={index}
-                      variants={skillVariants}
-                      className="space-y-2"
-                    >
-                      <div className="flex justify-between items-center">
-                        <div className="flex items-center gap-3">
-                          <div className="w-6 h-6 flex items-center justify-center text-primary">
-                            <DynamicIcon iconName={skill.icon} />
-                          </div>
-                          <span className="text-sm font-medium">
-                            {skill.name}
-                          </span>
-                        </div>
-                        <span className="text-sm text-muted-foreground">
-                          {skill.proficiency}%
-                        </span>
-                      </div>
-                      <div className="h-2 w-full bg-primary/10 rounded-full overflow-hidden">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={{ width: `${skill.proficiency}%` }}
-                          transition={{
-                            duration: 1,
-                            ease: "easeOut",
-                            delay: 0.2 + index * 0.1,
-                          }}
-                          className={`h-full rounded-full ${getProficiencyColorClass(
-                            skill.proficiency,
-                          )}`}
-                        />
-                      </div>
-                    </motion.div>
-                  ))}
-                </motion.div>
+                {renderSkillGroup(frontendSkills)}
               </CardContent>
             </Card>
           </motion.div>
@@ -269,43 +271,7 @@ const SkillSet = () => {
                 <h3 className="text-xl font-semibold">Backend Development</h3>
               </CardHeader>
               <CardContent className="space-y-5">
-                <motion.div variants={containerVariants} className="space-y-4">
-                  {backendSkills.map((skill, index) => (
-                    <motion.div
-                      key={index}
-                      variants={skillVariants}
-                      className="space-y-2"
-                    >
-                      <div className="flex justify-between items-center">
-                        <div className="flex items-center gap-3">
-                          <div className="w-6 h-6 flex items-center justify-center text-primary">
-                            <DynamicIcon iconName={skill.icon} />
-                          </div>
-                          <span className="text-sm font-medium">
-                            {skill.name}
-                          </span>
-                        </div>
-                        <span className="text-sm text-muted-foreground">
-                          {skill.proficiency}%
-                        </span>
-                      </div>
-                      <div className="h-2 w-full bg-primary/10 rounded-full overflow-hidden">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={{ width: `${skill.proficiency}%` }}
-                          transition={{
-                            duration: 1,
-                            ease: "easeOut",
-                            delay: 0.2 + index * 0.1,
-                          }}
-                          className={`h-full rounded-full ${getProficiencyColorClass(
-                            skill.proficiency,
-                          )}`}
-                        />
-                      </div>
-                    </motion.div>
-                  ))}
-                </motion.div>
+                {renderSkillGroup(backendSkills)}
               </CardContent>
             </Card>
           </motion.div>
@@ -323,43 +289,7 @@ const SkillSet = () => {
                 <h3 className="text-xl font-semibold">Tools & Platforms</h3>
               </CardHeader>
               <CardContent className="space-y-5">
-                <motion.div variants={containerVariants} className="space-y-4">
-                  {toolsSkills.map((skill, index) => (
-                    <motion.div
-                      key={index}
-                      variants={skillVariants}
-                      className="space-y-2"
-                    >
-                      <div className="flex justify-between items-center">
-                        <div className="flex items-center gap-3">
-                          <div className="w-6 h-6 flex items-center justify-center text-primary">
-                            <DynamicIcon iconName={skill.icon} />
-                          </div>
-                          <span className="text-sm font-medium">
-                            {skill.name}
-                          </span>
-                        </div>
-                        <span className="text-sm text-muted-foreground">
-                          {skill.proficiency}%
-                        </span>
-                      </div>
-                      <div className="h-2 w-full bg-primary/10 rounded-full overflow-hidden">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={{ width: `${skill.proficiency}%` }}
-                          transition={{
-                            duration: 1,
-                            ease: "easeOut",
-                            delay: 0.2 + index * 0.1,
-                          }}
-                          className={`h-full rounded-full ${getProficiencyColorClass(
-                            skill.proficiency,
-                          )}`}
-                        />
-                      </div>
-                    </motion.div>
-                  ))}
-                </motion.div>
+                {renderSkillGroup(toolsSkills)}
               </CardContent>
             </Card>
           </motion.div>
@@ -367,7 +297,7 @@ const SkillSet = () => {
       </motion.div>
 
       {/* Fallback message if no skills are found */}
-      {skills.length === 0 && !loading && (
+      {skills.length === 0 && (
         <div className="text-center py-10 text-muted-foreground">
           No skills data available. Please add skills to your database.
         </div>

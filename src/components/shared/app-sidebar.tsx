@@ -32,7 +32,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePathname, useRouter } from "next/navigation";
-import { config } from "@/middleware";
+import { config } from "@/proxy";
 import { deleteCookie } from "@/services/auth.service";
 import { useEffect, useState } from "react";
 import Logo from "./Logo";
@@ -43,27 +43,27 @@ const items = [
   {
     title: "About",
     icon: User,
-    href: "/",
+    href: "/admin",
   },
   {
     title: "Skills",
     icon: ArrowRightLeft,
-    href: "/skill-management",
+    href: "/admin/skill-management",
   },
   {
     title: "Projects",
     icon: LucideProjector,
-    href: `/project-management`,
+    href: `/admin/project-management`,
   },
   {
     title: "Blogs",
     icon: LucideFileTerminal,
-    href: `/blog-management`,
+    href: `/admin/blog-management`,
   },
   {
     title: "Messages",
     icon: MessageCircleMoreIcon,
-    href: `/messages`,
+    href: `/admin/messages`,
   },
 ];
 
@@ -118,7 +118,7 @@ export function AppSidebar() {
                   }
                 `}
               />
-              <span className="flex-grow">{item.title}</span>
+              <span className="grow">{item.title}</span>
               <ChevronRight
                 className="
                   w-4 h-4 

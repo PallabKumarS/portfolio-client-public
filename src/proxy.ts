@@ -9,7 +9,7 @@ const authorizedEmail = [
   "admin@admin.com",
 ];
 
-export const middleware = async (request: NextRequest) => {
+export const proxy = async (request: NextRequest) => {
   const userInfo = await getCurrentUser();
 
   const { pathname } = request.nextUrl;

@@ -1,7 +1,7 @@
 "use server";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getValidToken } from "@/lib/verifyToken";
-import { revalidateTag } from "next/cache";
+import { updateTag } from "next/cache";
 import { FieldValues } from "react-hook-form";
 
 // get all blog
@@ -58,8 +58,8 @@ export const createBlog = async (data: FieldValues) => {
       },
     });
 
-    revalidateTag("blogs");
-    revalidateTag("blog");
+    updateTag("blogs");
+    updateTag("blog");
 
     return await res.json();
   } catch (error: any) {
@@ -79,8 +79,8 @@ export const updateBlog = async (data: FieldValues, id: string) => {
       },
     });
 
-    revalidateTag("blogs");
-    revalidateTag("blog");
+    updateTag("blogs");
+    updateTag("blog");
 
     return await res.json();
   } catch (error: any) {
@@ -99,8 +99,8 @@ export const deleteBlog = async (id: string) => {
       },
     });
 
-    revalidateTag("blogs");
-    revalidateTag("blog");
+    updateTag("blogs");
+    updateTag("blog");
 
     return await res.json();
   } catch (error: any) {

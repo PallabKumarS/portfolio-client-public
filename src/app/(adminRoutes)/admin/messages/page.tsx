@@ -1,5 +1,5 @@
 import MessageAdminCard from "@/components/cards/MessageAdminCard";
-import ContainerComponent from "@/components/shared/ContainerComponent";
+import ContainerAdminComponent from "@/components/shared/ContainerAdminComponent";
 import { NoData } from "@/components/shared/NoData";
 import { getAllMessages } from "@/services/message.service";
 import { TMessage, TMongoose } from "@/types/types";
@@ -14,7 +14,7 @@ const MessagePage = async () => {
   const res = await getAllMessages();
 
   return (
-    <ContainerComponent className="mt-10">
+    <ContainerAdminComponent className="mt-6">
       <div className="flex justify-between items-center mb-10">
         <h1 className="text-3xl font-semibold">All Messages</h1>
       </div>
@@ -29,7 +29,7 @@ const MessagePage = async () => {
           <NoData />
         )}
       </div>
-    </ContainerComponent>
+    </ContainerAdminComponent>
   );
 };
 

@@ -1,5 +1,6 @@
 import { getProjectDetails } from "@/services/api.services";
 import ProjectDetails from "./ProjectDetails";
+import ContainerComponent from "@/components/shared/ContainerComponent";
 
 // generate meta data
 export const generateMetadata = async ({
@@ -26,8 +27,8 @@ export default async function DetailsPage({
   const res = await getProjectDetails(projectId);
 
   return (
-    <div className="min-h-screen mx-auto py-16 px-4">
+    <ContainerComponent className="mt-32">
       <ProjectDetails data={res?.data} />
-    </div>
+    </ContainerComponent>
   );
 }

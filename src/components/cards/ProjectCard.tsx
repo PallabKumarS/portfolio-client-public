@@ -13,9 +13,10 @@ import MovingGradientBorder from "../shared/MovingBorder";
 interface ProjectCardProps {
   data: TProject & TMongoose;
   edit?: boolean;
+  priority?: boolean;
 }
 
-const ProjectCard = ({ data }: ProjectCardProps) => {
+const ProjectCard = ({ data, priority = false }: ProjectCardProps) => {
   const {
     title,
     images,
@@ -27,20 +28,20 @@ const ProjectCard = ({ data }: ProjectCardProps) => {
   } = data;
 
   return (
-    <CardContainer className="inter-var w-72 sm:w-96 md:w-full ">
-      <MovingGradientBorder className="rounded-[22px] p-4 bg-white dark:bg-zinc-900">
+    <CardContainer className="w-full">
+      <MovingGradientBorder className="rounded-[22px] p-4 bg-card">
         <Card className="w-full bg-transparent border-none">
-          <CardBody className="relative w-72 sm:w-96 md:w-full h-fit flex flex-col gap-y-3 dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] rounded-xl p-2 md:p-6">
+          <CardBody className="relative w-full h-fit flex flex-col gap-y-3 hover:shadow-2xl hover:shadow-primary/10 border-border rounded-xl p-2 md:p-6">
             {/* title  */}
-            <CardItem className="text-lg sm:text-xl font-bold text-neutral-600 dark:text-white">
+            <CardItem className="text-lg sm:text-xl font-bold text-foreground">
               {title}
             </CardItem>
             {/* image here  */}
             <CardItem className="">
-              <ImageSlider images={images} variant="card" />
+              <ImageSlider images={images} variant="card" priority={priority} />
             </CardItem>
             {/* description here  */}
-            <CardItem className="text-neutral-500 text-xs sm:text-sm mt-4 dark:text-neutral-300 line-clamp-3">
+            <CardItem className="text-muted-foreground text-xs sm:text-sm mt-4 line-clamp-3">
               {description}
             </CardItem>
             {/* technology here  */}
@@ -49,7 +50,7 @@ const ProjectCard = ({ data }: ProjectCardProps) => {
                 <Badge
                   key={tech}
                   variant="secondary"
-                  className="text-xs sm:text-sm animate-shine bg-gradient-to-r from-primary/20 via-primary/40 to-primary/20 bg-[length:200%_100%]"
+                  className="text-xs sm:text-sm group-hover:animate-shine bg-linear-to-r from-primary/20 via-primary/40 to-primary/20 bg-size-[200%_100%]"
                 >
                   {tech}
                 </Badge>
@@ -57,7 +58,7 @@ const ProjectCard = ({ data }: ProjectCardProps) => {
               {technology.length > 9 && (
                 <Badge
                   variant="secondary"
-                  className="text-xs sm:text-sm animate-shine bg-gradient-to-r from-primary/20 via-primary/40 to-primary/20 bg-[length:200%_100%]"
+                  className="text-xs sm:text-sm group-hover:animate-shine bg-linear-to-r from-primary/20 via-primary/40 to-primary/20 bg-size-[200%_100%]"
                 >
                   +{technology.length - 9}
                 </Badge>
@@ -66,7 +67,7 @@ const ProjectCard = ({ data }: ProjectCardProps) => {
             {/* links here  */}
             <div className="flex flex-wrap items-center gap-2 md:gap-3">
               <CardItem>
-                <Link href={liveLink} target="_blank">
+                <Link href={liveLink} target="_blank" rel="noopener noreferrer">
                   <Button
                     variant="outline"
                     size="sm"
@@ -80,7 +81,7 @@ const ProjectCard = ({ data }: ProjectCardProps) => {
 
               {clientRepo && (
                 <CardItem>
-                  <Link href={clientRepo} target="_blank">
+                  <Link href={clientRepo} target="_blank" rel="noopener noreferrer">
                     <Button
                       variant="outline"
                       size="sm"
@@ -95,7 +96,7 @@ const ProjectCard = ({ data }: ProjectCardProps) => {
 
               {serverRepo && (
                 <CardItem>
-                  <Link href={serverRepo} target="_blank">
+                  <Link href={serverRepo} target="_blank" rel="noopener noreferrer">
                     <Button
                       variant="outline"
                       size="sm"

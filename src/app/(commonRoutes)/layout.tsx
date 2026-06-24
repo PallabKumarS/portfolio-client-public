@@ -8,7 +8,7 @@ export default async function RootLayout({
 }>) {
   return (
     <div>
-      <div className="min-h-screen">
+      <div className="min-h-screen w-full">
         <Navbar />
         <div className="h-full">{children}</div>
       </div>

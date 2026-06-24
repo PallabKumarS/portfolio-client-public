@@ -3,7 +3,7 @@
 
 import { getValidToken } from "@/lib/verifyToken";
 import { TProject } from "@/types/types";
-import { revalidateTag } from "next/cache";
+import { updateTag } from "next/cache";
 
 // get all projects
 export const getAllProjects = async () => {
@@ -53,8 +53,8 @@ export const createProject = async (data: TProject) => {
       body: JSON.stringify(data),
     });
 
-    revalidateTag("projects");
-    revalidateTag("project");
+    updateTag("projects");
+    updateTag("project");
 
     return await res.json();
   } catch (error: any) {
@@ -74,8 +74,8 @@ export const updateProject = async (data: TProject, projectId: string) => {
       body: JSON.stringify(data),
     });
 
-    revalidateTag("projects");
-    revalidateTag("project");
+    updateTag("projects");
+    updateTag("project");
 
     return await res.json();
   } catch (error: any) {

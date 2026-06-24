@@ -30,9 +30,9 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.3 }}
-      className="navbar-gradient backdrop-blur supports-backdrop-filter:bg-background/60 px-5 py-2 w-screen border-b"
+      className="navbar-gradient backdrop-blur supports-backdrop-filter:bg-background/60 py-2 w-full fixed top-0 z-50 border-b"
     >
-      <ContainerComponent className="sticky top-0 left-0 z-40">
+      <ContainerComponent className="mt-0!">
         <div className="flex h-14 items-center justify-between mx-auto">
           <Logo />
 

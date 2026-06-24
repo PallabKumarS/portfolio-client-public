@@ -1,18 +1,17 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useEffect, useState } from "react";
+import { use } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { FiArrowRight, FiGithub, FiGlobe } from "react-icons/fi";
+import { FiArrowRight, FiEye, FiGithub, FiGlobe } from "react-icons/fi";
 import { motion, Variants } from "framer-motion";
 import { TMongoose, TProject } from "@/types/types";
-import { getAllProjects } from "@/services/api.services";
-import { LoaderComponent } from "../shared/LoaderComponent";
 import { FaStar } from "react-icons/fa";
 import { NoData } from "../shared/NoData";
 import ImageSlider from "../shared/ImageSlider";
+import Link from "next/link";
 
 // Animation variants
 const containerVariants = {
@@ -52,15 +51,6 @@ const featuredItemVariants: Variants = {
   },
 };
 
-const titleVariants = {
-  hidden: { opacity: 0, y: -20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
-  },
-};
-
 const badgeVariants = {
   hidden: { opacity: 0, scale: 0.8 },
   visible: {
@@ -74,39 +64,18 @@ const fadeIn = {
   visible: { opacity: 1, transition: { duration: 0.6 } },
 };
 
-const Featured = () => {
-  const [projects, setProjects] = useState<(TProject & TMongoose)[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const res = await getAllProjects();
-        if (res?.data) {
-          // Get the first 3 projects
-          setProjects(res.data.slice(0, 3));
-        }
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error("Error fetching projects:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProjects();
-  }, []);
-
-  if (loading) {
-    return <LoaderComponent size={"xl"} centered text="Loading projects..." />;
-  }
+const Featured = ({ dataPromise }: { dataPromise: Promise<any> }) => {
+  const response = use(dataPromise);
+  const projects: (TProject & TMongoose)[] = response?.data
+    ? response.data.slice(0, 3)
+    : [];
 
   if (projects.length === 0) {
     return <NoData />;
   }
 
   return (
-    <section className="py-16">
+    <section className="py-20">
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -121,7 +90,7 @@ const Featured = () => {
           variants={fadeIn}
           className="mb-5 text-center"
         >
-          <h1 className="text-4xl font-bold mb-3">Featured</h1>
+          <h1 className="text-4xl font-bold mb-3">Featured Projects</h1>
           <motion.div
             initial={{ width: 0 }}
             whileInView={{ width: "80px" }}
@@ -175,7 +144,11 @@ const Featured = () => {
                         }`}
                       >
                         <div className="p-6 h-full">
-                          <ImageSlider images={project.images} variant="card" />
+                          <ImageSlider
+                            images={project.images}
+                            variant="card"
+                            priority={index === 0}
+                          />
                         </div>
                       </motion.div>
 
@@ -241,7 +214,7 @@ const Featured = () => {
                         <div className="flex flex-wrap gap-4 pt-4 mt-auto">
                           {project.liveLink && (
                             <Button
-                              variant={isFeatured ? "default" : "default"}
+                              variant="default"
                               className={`group ${
                                 isFeatured
                                   ? "bg-primary hover:bg-primary/90"
@@ -261,6 +234,7 @@ const Featured = () => {
                             </Button>
                           )}
 
+                          {/* Client Repo Button */}
                           {project.clientRepo && (
                             <Button
                               variant="outline"
@@ -283,6 +257,7 @@ const Featured = () => {
                             </Button>
                           )}
 
+                          {/* Server Repo Button */}
                           {project.serverRepo && (
                             <Button
                               variant="outline"
@@ -304,6 +279,23 @@ const Featured = () => {
                               </a>
                             </Button>
                           )}
+
+                          {/* View Details Button */}
+
+                          <Link href={`/projects/${project._id}`}>
+                            <Button
+                              variant="outline"
+                              className={`group ${
+                                isFeatured
+                                  ? "border-primary/50 hover:border-primary"
+                                  : ""
+                              }`}
+                            >
+                              <FiEye className="mr-2 h-4 w-4" />
+                              Details
+                              <FiArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                            </Button>
+                          </Link>
                         </div>
                       </motion.div>
                     </div>
@@ -312,6 +304,14 @@ const Featured = () => {
               </motion.div>
             );
           })}
+        </div>
+        <div className="flex justify-center items-center mt-16">
+          <Link
+            href="/projects"
+            className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-all shadow-lg hover:shadow-primary/20 hover:shadow-xl"
+          >
+            View All Projects
+          </Link>
         </div>
       </motion.div>
     </section>

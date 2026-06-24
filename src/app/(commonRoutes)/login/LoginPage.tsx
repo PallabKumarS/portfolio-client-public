@@ -90,7 +90,7 @@ const LoginPage = () => {
 
       {/* Login */}
       <motion.div
-        className="relative z-10 w-[400px]"
+        className="relative z-10 w-100"
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5 }}

@@ -165,3 +165,32 @@
     var(--footer-to)
   );
 }
+
+/* ── Moving gradient border (pure CSS, zero JS overhead) ── */
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: true;
+}
+
+@keyframes border-spin {
+  to {
+    --border-angle: 360deg;
+  }
+}
+
+.moving-border-wrapper {
+  --border-angle: 0deg;
+  animation: border-spin var(--border-duration, 8s) linear infinite;
+}
+
+.moving-border-gradient {
+  background: conic-gradient(
+    from var(--border-angle),
+    var(--primary),
+    var(--secondary),
+    var(--accent),
+    var(--primary)
+  );
+}
+

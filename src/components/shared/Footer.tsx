@@ -24,24 +24,36 @@ const Footer = () => {
           <div className="flex flex-wrap justify-center gap-6">
             <a
               href="https://www.facebook.com/PallabKumars"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
               className="transition-transform hover:scale-110"
             >
               <BsFacebook className="text-4xl text-primary hover:text-accent/80" />
             </a>
             <a
               href="https://www.instagram.com/pallabkumars/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
               className="transition-transform hover:scale-110"
             >
               <FaInstagram className="text-4xl text-primary hover:text-accent/80" />
             </a>
             <a
               href="https://twitter.com/PallabKumarS"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Twitter"
               className="transition-transform hover:scale-110"
             >
               <BsTwitter className="text-4xl text-primary hover:text-accent/80" />
             </a>
             <a
               href="https://github.com/PallabKumarS"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
               className="transition-transform hover:scale-110"
             >
               <FaGithub className="text-4xl text-primary hover:text-accent/80" />

@@ -7,12 +7,26 @@ import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function ThemeToggle() {
+  const [mounted, setMounted] = React.useState(false);
   const { setTheme, theme } = useTheme();
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div className="relative w-6 h-6 flex items-center justify-center overflow-hidden border-2 p-4 rounded-full">
+        <div className="h-[1.2rem] w-[1.2rem]" />
+      </div>
+    );
+  }
+
   const isDark = theme === "dark";
 
   return (
     <div
-      className="relative w-[1.5rem] h-[1.5rem] flex items-center justify-center overflow-hidden border-2 p-4 rounded-full"
+      className="relative w-6 h-6 flex items-center justify-center overflow-hidden border-2 p-4 rounded-full"
       onClick={() => setTheme(isDark ? "light" : "dark")}
     >
       <AnimatePresence mode="wait">
