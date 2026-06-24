@@ -16,7 +16,7 @@ const ContactPage = () => {
 
   return (
     <ContainerComponent className="relative mt-32">
-      <div className="container mx-auto p-4 z-10 rounded-lg">
+      <div className="container mx-auto p-4 relative z-10 rounded-lg">
         <TextGenerateEffect
           words={words}
           className="text-3xl md:text-4xl font-bold text-center mb-8 text-foreground"
